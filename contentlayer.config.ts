@@ -8,7 +8,7 @@ import * as hast from "hast";
 import "mdast-util-mdx";
 import rehypeSlug, {
   type Options as RehypeSlugOptions,
-} from "./src/remark/remark-plugin-slug";
+} from "./src/markdown/rehype-plugin-slug";
 import {
   extendedTableHandlers,
   remarkExtendedTable,

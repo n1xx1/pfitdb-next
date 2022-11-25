@@ -18,6 +18,8 @@
     "downlevelIteration": true,
     "baseUrl": ".",
     "paths": {
+      "@app/*": ["./app/*"],
+      "@/*": ["./src/*"],
       "contentlayer/generated": ["./.contentlayer/generated"]
     }
   },
