@@ -18,6 +18,7 @@ specifiers:
   autoprefixer: ^10.4.13
   clsx: ^1.2.1
   contentlayer: ^0.2.9
+  cva: npm:class-variance-authority@^0.3.0
   esbuild: ^0.15.15
   estree-util-value-to-estree: ^2.1.0
   github-slugger: ^2.0.0
@@ -51,6 +52,7 @@ dependencies:
   '@next/font': 13.0.5
   clsx: 1.2.1
   contentlayer: 0.2.9
+  cva: /class-variance-authority/0.3.0_typescript@4.9.3
   lodash-es: 4.17.21
   next: 13.0.5_biqbaboplfbrettd7655fr4n2y
   next-contentlayer: 0.2.9_7iuvftg57tblwyxclfkwku5xo4
@@ -1013,6 +1015,17 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.2
+
+  /class-variance-authority/0.3.0_typescript@4.9.3:
+    resolution: {integrity: sha512-TFO+pzY9Gedqv8crPhprd647wxhvfpKevPPjiMcteEWsnkHX9yZrD1xMY3ZhRZnLwHUHCCP0LYO6KZIVag/5wQ==}
+    peerDependencies:
+      typescript: '>= 4.5.5 < 5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      typescript: 4.9.3
+    dev: false
 
   /client-only/0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
@@ -3092,7 +3105,6 @@ packages:
     resolution: {integrity: sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: true
 
   /unified/10.1.2:
     resolution: {integrity: sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==}

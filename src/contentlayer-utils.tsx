@@ -211,3 +211,16 @@ export function getPreviousTraverse(doc: DocumentTypes) {
   if (!page) return null;
   return pageGetPreviousTraverse(page)?.page ?? null;
 }
+
+export function getParents(doc: DocumentTypes) {
+  let page = root.get(doc.url_.split("/"));
+  page = page?.parent ?? null;
+  const parents: DocumentTypes[] = [];
+  while (page) {
+    if (page.page) {
+      parents.unshift(page.page);
+    }
+    page = page.parent;
+  }
+  return parents;
+}

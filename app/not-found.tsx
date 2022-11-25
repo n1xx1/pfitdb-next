@@ -5,14 +5,14 @@ export default function NotFound() {
   return (
     <DocumentPage
       breadcrumbs={[]}
-      headings={[]}
       content={
         <>
           <div className="prose prose-slate relative max-w-none">
-            <Heading depth={1}>PFITDB</Heading>
+            <Heading depth={1}>Not Found</Heading>
           </div>
         </>
       }
+      headings={[]}
     />
   );
 }

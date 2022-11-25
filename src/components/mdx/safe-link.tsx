@@ -10,10 +10,15 @@ export function SafeLink({
   ...props
 }: AnchorHTMLAttributes<HTMLAnchorElement>) {
   href = href ?? "";
-  const [realLink] = href.split("#");
-  if (root.get(realLink.replace(/^\//, "").split("/"))) {
+  const [realLink, anchor] = href.split("#");
+  const tree = root.get(realLink.replace(/^\//, "").split("/"));
+  if (tree && tree.page) {
     return (
-      <Link href={href} className={className} {...props}>
+      <Link
+        href={`/${tree.page.url_}${anchor ? `#${anchor}` : ""}`}
+        className={className}
+        {...props}
+      >
         {children}
       </Link>
     );

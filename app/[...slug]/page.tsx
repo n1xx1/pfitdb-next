@@ -1,13 +1,21 @@
-import clsx from "clsx";
-import { allDocuments } from "contentlayer/generated";
+import { allDocuments, DocumentTypes } from "contentlayer/generated";
 import Link from "next/link";
 import { Fragment } from "react";
+import { Button } from "src/components/button";
 import { IconChevronLeft, IconChevronRight } from "src/components/icons";
 import { baseComponents } from "src/components/mdx/base";
 import { Heading } from "src/components/mdx/heading";
+import { DocumentPage } from "src/components/page";
 import { getMDXComponent } from "src/contentlayer-mdx";
-import { getNextTraverse, getPreviousTraverse } from "src/contentlayer-utils";
+import {
+  getNextTraverse,
+  getParents,
+  getPreviousTraverse,
+} from "src/contentlayer-utils";
 import { gatherHeadings } from "src/heading-extractor";
+import { notFound } from "next/navigation";
+
+// export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return allDocuments.map((doc) => ({
@@ -20,7 +28,7 @@ export default function Page({ params, searchParams }: any) {
   const doc = allDocuments.find((x) => x.url_ === realSlug);
 
   if (!doc) {
-    return <>Not found</>;
+    notFound();
   }
 
   const MDXContent = getMDXComponent(doc.body.code);
@@ -39,76 +47,76 @@ export default function Page({ params, searchParams }: any) {
       />
     </>
   );
-  const previousPage = getPreviousTraverse(doc);
+
+  const parents = getParents(doc).map((p) => ({
+    href: p.url_,
+    children: p.title.name,
+  }));
+
+  return (
+    <DocumentPage
+      breadcrumbs={[...parents, { href: doc.url_, children: doc.title.name }]}
+      content={
+        <>
+          <div className="prose prose-slate relative max-w-none">
+            <Heading depth={1} id={doc.titleSlug}>
+              {doc.title.name}
+            </Heading>
+            <MDXContent components={baseComponents} />
+          </div>
+          <div className="my-8 flex gap-2">
+            <PreviousPageButton doc={doc} />
+            <NextPageButton doc={doc} />
+          </div>
+        </>
+      }
+      headings={headings}
+    />
+  );
+}
+
+export function NextPageButton({ doc }: { doc: DocumentTypes }) {
   const nextPage = getNextTraverse(doc);
 
   return (
-    <div className="mx-auto max-w-3xl pt-10 xl:ml-0 xl:mr-[15.5rem] xl:max-w-none xl:pr-16">
-      <div className="relative z-20">
-        <div className="prose prose-slate relative max-w-none">
-          <Heading depth={1} id={doc.titleSlug}>
-            {doc.title.name}
-          </Heading>
-          <MDXContent components={baseComponents} />
-        </div>
-        <div className="my-8 flex gap-2">
-          <div className="flex-1">
-            {!!previousPage && (
-              <Link
-                href={`/${previousPage.url_}`}
-                className="group block rounded-md border-2 border-slate-400 p-3 text-left hover:border-slate-600"
-              >
-                <div className="text-sm font-semibold text-slate-400  group-hover:text-slate-600">
-                  Precedente
-                </div>
-                <div className="flex items-center justify-start text-slate-400  group-hover:text-slate-600">
-                  <IconChevronLeft className="mr-2 h-1.5 w-auto overflow-visible text-slate-400 group-hover:text-slate-600" />
-                  {previousPage.title.name ?? "null"}
-                </div>
-              </Link>
-            )}
+    <div className="flex-1">
+      {!!nextPage && (
+        <Button
+          as={Link}
+          href={`/${nextPage.url_}`}
+          variant="solid"
+          className="group !flex flex-col text-right"
+        >
+          <div className="text-sm font-semibold">Successivo</div>
+          <div className="mt-2 flex items-center justify-end text-gray-400 group-hover:text-gray-700">
+            {nextPage.title.name ?? "null"}
+            <IconChevronRight className="ml-2 h-1.5 w-auto overflow-visible" />
           </div>
-          <div className="flex-1">
-            {!!nextPage && (
-              <Link
-                href={`/${nextPage.url_}`}
-                className="group block rounded-md border-2 border-slate-400 p-3 text-right hover:border-slate-600"
-              >
-                <div className="text-sm font-semibold text-slate-400  group-hover:text-slate-600">
-                  Successivo
-                </div>
-                <div className="flex items-center justify-end text-slate-400  group-hover:text-slate-600">
-                  {nextPage.title.name ?? "null"}
-                  <IconChevronRight className="ml-2 h-1.5 w-auto overflow-visible" />
-                </div>
-              </Link>
-            )}
+        </Button>
+      )}
+    </div>
+  );
+}
+
+export function PreviousPageButton({ doc }: { doc: DocumentTypes }) {
+  const previousPage = getPreviousTraverse(doc);
+
+  return (
+    <div className="flex-1">
+      {!!previousPage && (
+        <Button
+          as={Link}
+          href={`/${previousPage.url_}`}
+          variant="solid"
+          className="group !flex flex-col text-left"
+        >
+          <div className="text-sm font-semibold">Precedente</div>
+          <div className="mt-2 flex items-center justify-start text-gray-400 group-hover:text-gray-700">
+            <IconChevronLeft className="mr-2 h-1.5 w-auto overflow-visible" />
+            {previousPage.title.name ?? "null"}
           </div>
-        </div>
-      </div>
-      <div className="fixed top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] z-20 hidden w-[19.5rem] overflow-y-auto py-10 xl:block">
-        <div className="px-8">
-          <ul className="text-sm leading-6 text-slate-700">
-            {headings
-              .filter((h) => h.depth <= 3)
-              .map((h, i) => (
-                <li
-                  key={i}
-                  className={["", "", "ml-4", "ml-8", "ml-12"][h.depth] ?? ""}
-                >
-                  <a
-                    href={`#${h.id}`}
-                    className={clsx("block py-1 hover:text-slate-900", {
-                      "font-medium": h.depth <= 1,
-                    })}
-                  >
-                    {h.children}
-                  </a>
-                </li>
-              ))}
-          </ul>
-        </div>
-      </div>
+        </Button>
+      )}
     </div>
   );
 }
