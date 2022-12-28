@@ -5,3 +5,5 @@ disablePrevious: true
 ---
 
 # Manuale di Gioco
+
+<ResourceList columns={1} />

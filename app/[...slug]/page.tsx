@@ -1,10 +1,13 @@
+import { PageContext } from "@/components/mdx/context";
+import { PageHeading } from "@/components/page-heading";
+import { Traits } from "@/components/traits";
+import clsx from "clsx";
 import { allDocuments, DocumentTypes } from "contentlayer/generated";
 import Link from "next/link";
-import { Fragment } from "react";
+import { notFound } from "next/navigation";
 import { Button } from "src/components/button";
 import { IconChevronLeft, IconChevronRight } from "src/components/icons";
-import { baseComponents } from "src/components/mdx/base";
-import { Heading } from "src/components/mdx/heading";
+import { baseComponents, statblockComponents } from "src/components/mdx/base";
 import { DocumentPage } from "src/components/page";
 import { getMDXComponent } from "src/contentlayer-mdx";
 import {
@@ -13,7 +16,6 @@ import {
   getPreviousTraverse,
 } from "src/contentlayer-utils";
 import { gatherHeadings } from "src/heading-extractor";
-import { notFound } from "next/navigation";
 
 // export const dynamicParams = false;
 
@@ -23,50 +25,70 @@ export async function generateStaticParams() {
   }));
 }
 
+export function documentIsStatblock(doc: DocumentTypes) {
+  return doc.type === "Spell";
+}
+
 export default function Page({ params, searchParams }: any) {
   const realSlug = params.slug.join("/");
-  const doc = allDocuments.find((x) => x.url_ === realSlug);
+  const page = allDocuments.find((x) => x.url_ === realSlug);
 
-  if (!doc) {
+  if (!page) {
     notFound();
   }
 
-  const MDXContent = getMDXComponent(doc.body.code);
+  const isStatblock = documentIsStatblock(page);
+  const MDXContent = getMDXComponent(page.body.code);
 
   const headings = gatherHeadings(
     <>
-      <Heading depth={1} id={doc.titleSlug}>
-        {doc.title.name}
-      </Heading>
+      <PageHeading
+        title={page.title}
+        id={page.titleSlug}
+        isStatblock={isStatblock}
+      />
       <MDXContent
         components={{
           ...baseComponents,
-          a: Fragment,
-          TraitList: Fragment,
+          a: ({ children }) => <>{children}</>,
+          TraitList: ({ children }) => <>{children}</>,
         }}
       />
     </>
   );
 
-  const parents = getParents(doc).map((p) => ({
+  const parents = getParents(page).map((p) => ({
     href: p.url_,
     children: p.title.name,
   }));
 
   return (
     <DocumentPage
-      breadcrumbs={[...parents, { href: doc.url_, children: doc.title.name }]}
+      breadcrumbs={[...parents, { href: page.url_, children: page.title.name }]}
       content={
         <>
-          <div className="prose prose-slate relative max-w-none">
-            <Heading depth={1} id={doc.titleSlug}>
-              {doc.title.name}
-            </Heading>
-            <MDXContent components={baseComponents} />
+          <div
+            className={clsx(
+              "relative",
+              !isStatblock && "prose prose-slate max-w-none"
+            )}
+          >
+            <PageHeading
+              title={page.title}
+              id={page.titleSlug}
+              isStatblock={isStatblock}
+            />
+            {"traits" in page && <Traits traits={page.traits ?? []} />}
+            {isStatblock && <hr />}
+            <PageContext.Provider value={{ page }}>
+              <MDXContent
+                components={isStatblock ? statblockComponents : baseComponents}
+              />
+            </PageContext.Provider>
           </div>
           <div className="my-8 flex gap-2">
-            <PreviousPageButton doc={doc} />
-            <NextPageButton doc={doc} />
+            <PreviousPageButton doc={page} />
+            <NextPageButton doc={page} />
           </div>
         </>
       }

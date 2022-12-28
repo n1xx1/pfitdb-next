@@ -43,8 +43,8 @@ export function Heading({
       {...props}
       id={id}
       className={clsx(
-        className,
-        "group -ml-4 flex scroll-mt-[var(--scroll-mt)] whitespace-pre-wrap pl-4"
+        "group -ml-4 flex scroll-mt-[var(--scroll-mt)] gap-[.25em] whitespace-pre-wrap pl-4",
+        className
       )}
     >
       <Anchor href={`#${id}`} />

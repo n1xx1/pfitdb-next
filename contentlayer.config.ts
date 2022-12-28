@@ -15,6 +15,7 @@ import {
 } from "remark-extended-table";
 import remarkGfm from "remark-gfm";
 import { getSlugOrder, parseTitle } from "./src/utils";
+import remarkIcons from "./src/markdown/remark-plugin-icons";
 
 function getPageSlugFromFlattenedPath(path: string) {
   const parts = path.split(/\//g);
@@ -97,6 +98,20 @@ const Trait = defineDocumentType(() => ({
   },
 }));
 
+const Spell = defineDocumentType(() => ({
+  name: "Spell",
+  filePathPattern: "incantesimi/[^_]*.md",
+  contentType: "mdx",
+  fields: {
+    ...defineBaseFields(),
+    traits: { type: "list", of: { type: "string" } },
+    traditions: { type: "list", of: { type: "string" } },
+  },
+  computedFields: {
+    ...defineBaseComputedFields(),
+  },
+}));
+
 const Doc = defineDocumentType(() => ({
   name: "Doc",
   filePathPattern: "**/*.md",
@@ -125,10 +140,10 @@ function rehypeRemoveTitle() {
 
 export default makeSource({
   contentDirPath: "content",
-  documentTypes: [Trait, Doc],
+  documentTypes: [Trait, Spell, Doc],
   onExtraFieldData: "ignore",
   mdx: {
-    remarkPlugins: [remarkGfm, remarkExtendedTable],
+    remarkPlugins: [remarkGfm, remarkExtendedTable, remarkIcons],
     rehypePlugins: [
       [
         rehypeSlug,

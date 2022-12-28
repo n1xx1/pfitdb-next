@@ -1,7 +1,10 @@
 import clsx from "clsx";
+import Link from "next/link";
 import { ReactNode } from "react";
 import { Breadcrumb, MobileBreadcrumbs } from "./breadcrumbs";
+import { IconAncestry } from "./icons";
 import { Navbar } from "./navbar";
+import { Sidebar } from "./sidebar";
 
 interface DocumentPageProps {
   content: ReactNode;
@@ -23,7 +26,9 @@ export function DocumentPage({
         </div>
       </div>
       <div className="mx-auto max-w-8xl px-4 sm:px-6 md:px-8">
-        <div className="fixed inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto z-20 hidden w-[19.5rem] overflow-y-auto px-8 pb-10 lg:block"></div>
+        <div className="fixed inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto z-20 hidden w-[19.5rem] overflow-y-auto px-8 pb-10 lg:block">
+          <Sidebar />
+        </div>
         <div className="lg:pl-[19.5rem]">
           <div className="mx-auto max-w-3xl pt-10 xl:ml-0 xl:mr-[15.5rem] xl:max-w-none xl:pr-16">
             <div className="relative z-20">{content}</div>

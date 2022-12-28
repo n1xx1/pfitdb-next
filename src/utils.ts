@@ -2,6 +2,8 @@ export function getSlugOrder(slug: string) {
   return parseInt(slug.match(/^(?:(\d+)-).*$/)?.[1] ?? "0", 10);
 }
 
+export type Title = { name: string; type?: string; level?: string };
+
 export function parseTitle(title: string) {
   const match = title.match(/^(.*?)(?:\s+-\s+(.*?)(?:\s+(\d+))?)?$/);
   if (match) {

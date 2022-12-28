@@ -1,6 +1,5 @@
 import { allDocuments, DocumentTypes } from "contentlayer/generated";
 import orderBy from "lodash-es/orderBy";
-import { getSlugOrder } from "./utils";
 
 class Tree {
   slug: string;
@@ -21,7 +20,7 @@ class Tree {
   get sortedChildren() {
     return orderBy(
       [...(this.children?.values() ?? [])].filter((s) => !!s.page),
-      [(s) => s.page!.order, (s) => s.page!.title.name],
+      [(s) => s.page!.order_, (s) => s.page!.title.name],
       ["asc", "asc"]
     );
   }
