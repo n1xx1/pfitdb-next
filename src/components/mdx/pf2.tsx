@@ -1,11 +1,11 @@
-import clsx from "clsx";
+import { cx } from "cva";
 import { SVGProps } from "react";
 
 export function A({ className, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="5 7 9 20"
-      className={clsx(
+      className={cx(
         "relative top-[0.1em] inline-block h-[1em] w-[1em] align-baseline",
         className
       )}
@@ -19,7 +19,7 @@ export function AA({ className, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 7 30 20"
-      className={clsx(
+      className={cx(
         "relative top-[0.1em] inline-block h-[1em] w-[1.35em] align-baseline",
         className
       )}
@@ -33,7 +33,7 @@ export function AAA({ className, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 7 39 20"
-      className={clsx(
+      className={cx(
         "relative top-[0.1em] inline-block h-[1em] w-[1.7em] align-baseline",
         className
       )}
@@ -47,7 +47,7 @@ export function R({ className, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="5 7 22 17"
-      className={clsx(
+      className={cx(
         "relative top-[0.1em] inline-block h-[1em] w-[1em] align-baseline",
         className
       )}
@@ -61,7 +61,7 @@ export function F({ className, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="6 7 20 18"
-      className={clsx(
+      className={cx(
         "relative top-[0.1em] inline-block h-[1em] w-[1em] align-baseline",
         className
       )}

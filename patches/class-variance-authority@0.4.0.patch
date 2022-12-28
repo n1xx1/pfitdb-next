@@ -1,0 +1,11 @@
+diff --git a/dist/types.d.ts b/dist/types.d.ts
+index 761dcb7b347cc8c6088aafbdbf6ba7463a2a8d4a..138dde752437b0595d324bf5272f8e235e12145a 100644
+--- a/dist/types.d.ts
++++ b/dist/types.d.ts
+@@ -1,5 +1,5 @@
+ export declare type ClassPropKey = "class" | "className";
+-export declare type ClassValue = string | null | undefined | ClassValue[];
++export declare type ClassValue = string | boolean | null | undefined | ClassValue[];
+ export declare type ClassProp = {
+     class: ClassValue;
+     className?: never;

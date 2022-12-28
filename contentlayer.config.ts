@@ -84,7 +84,7 @@ function defineBaseFields() {
 
 const Trait = defineDocumentType(() => ({
   name: "Trait",
-  filePathPattern: "tratti/*.md",
+  filePathPattern: "tratti/[^_]*.md",
   contentType: "mdx",
   fields: {
     ...defineBaseFields(),

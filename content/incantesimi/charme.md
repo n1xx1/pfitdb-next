@@ -26,14 +26,24 @@ a meno che la sua amicizia verso di te o le azioni che hai convinto a
 intraprendere si scontrino con le sue aspettative; in tal caso, potresti dover
 convincere il bersaglio a continuare ad essere tuo amico.
 
-Successo Critico: Il bersaglio non è influenzato ed è consapevole che tu abbia
-provato a lanciare charme. Successo: Il bersaglio non è influenzato, ma pensa
-che il tuo incantesimo sia stato qualcosa di innocuo invece di charme, a meno
-che non Identifichi l'Incantesimo. Fallimento: L'atteggiamento del bersaglio
-diventa amichevole nei tuoi confronti. Se era già amichevole, diventa premuroso.
-Non può usare azioni ostili contro di te. Fallimento Critico: L'atteggiamento
-del bersaglio diventa premuroso nei tuoi confronti. Non può usare azioni ostili
-contro di te. Intensificato (4°) La durata persiste fino ai tuoi prossimi
-preparativi giornalieri. Intensificato (8°) La durata persiste fino ai tuoi
-prossimi preparativi giornalieri, e puoi prendere come bersaglio fino a 10
-creature.
+**Successo Critico** Il bersaglio non è influenzato ed è consapevole che tu
+abbia provato a lanciare charme.
+
+**Successo**: Il bersaglio non è influenzato, ma pensa che il tuo incantesimo
+sia stato qualcosa di innocuo invece di charme, a meno che non Identifichi
+l'Incantesimo.
+
+**Fallimento** L'atteggiamento del bersaglio diventa amichevole nei tuoi
+confronti. Se era già amichevole, diventa premuroso. Non può usare azioni ostili
+contro di te.
+
+**Fallimento Critico**: L'atteggiamento del bersaglio diventa premuroso nei tuoi
+confronti. Non può usare azioni ostili contro di te.
+
+---
+
+**Intensificato (4°)** La durata persiste fino ai tuoi prossimi preparativi
+giornalieri.
+
+**Intensificato (8°)** La durata persiste fino ai tuoi prossimi preparativi
+giornalieri, e puoi prendere come bersaglio fino a 10 creature.

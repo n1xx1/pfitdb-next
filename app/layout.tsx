@@ -1,5 +1,5 @@
 import { Inter } from "@next/font/google";
-import clsx from "clsx";
+import { cx } from "cva";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={clsx(
+      className={cx(
         inter.variable,
         "[--scroll-mt:9.875rem] lg:[--scroll-mt:6.3125rem]"
       )}

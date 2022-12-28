@@ -30,6 +30,7 @@ export const statblockComponents: MDXComponents = {
   Include,
   a: ({ ref, ...props }) => <SafeLink {...props} />,
   p: ({ ...props }) => <p className="my-2" {...props} />,
+  ul: ({ ...props }) => <ul className="my-2 list-disc pl-5" {...props} />,
   hr: ({ ...props }) => <hr className="my-2" {...props} />,
   A,
   AA,

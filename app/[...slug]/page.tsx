@@ -1,8 +1,8 @@
 import { PageContext } from "@/components/mdx/context";
 import { PageHeading } from "@/components/page-heading";
 import { Traits } from "@/components/traits";
-import clsx from "clsx";
 import { allDocuments, DocumentTypes } from "contentlayer/generated";
+import { cx } from "cva";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button } from "src/components/button";
@@ -68,7 +68,7 @@ export default function Page({ params, searchParams }: any) {
       content={
         <>
           <div
-            className={clsx(
+            className={cx(
               "relative",
               !isStatblock && "prose prose-slate max-w-none"
             )}

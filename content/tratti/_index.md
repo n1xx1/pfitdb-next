@@ -2,7 +2,8 @@
 source: Manuale di Gioco, pag. 13
 original-name: Traits
 original-srd: https://2e.aonprd.com/Traits.aspx
-navigation-disable: true
+disableNext: true
+disablePrevious: true
 ---
 
 # Tratti

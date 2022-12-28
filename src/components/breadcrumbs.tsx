@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { cx } from "cva";
 import { ReactNode } from "react";
 import { IconChevronRight, IconHamburger } from "./icons";
@@ -22,7 +21,7 @@ export function MobileBreadcrumbs({ breadcrumbs }: MobileBreadcrumbsProps) {
         {breadcrumbs.map((b, i) => (
           <li
             key={i}
-            className={clsx(
+            className={cx(
               "flex items-center",
               i === last && "truncate font-semibold text-gray-900"
             )}

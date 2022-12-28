@@ -1,8 +1,6 @@
-import clsx from "clsx";
-import Link from "next/link";
+import { cx } from "cva";
 import { ReactNode } from "react";
 import { Breadcrumb, MobileBreadcrumbs } from "./breadcrumbs";
-import { IconAncestry } from "./icons";
 import { Navbar } from "./navbar";
 import { Sidebar } from "./sidebar";
 
@@ -46,9 +44,10 @@ export function DocumentPage({
                       >
                         <a
                           href={`#${h.id ?? ""}`}
-                          className={clsx("block py-1 hover:text-slate-900", {
-                            "font-medium": h.depth <= 1,
-                          })}
+                          className={cx(
+                            "block py-1 hover:text-slate-900",
+                            h.depth <= 1 && "font-medium"
+                          )}
                         >
                           {h.children}
                         </a>

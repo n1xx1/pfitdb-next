@@ -1,7 +1,6 @@
-import clsx from "clsx";
-import { allTraits } from "contentlayer/generated";
+import { allTraits, Trait } from "contentlayer/generated";
+import { cx } from "cva";
 import Link from "next/link";
-import { ReactNode } from "react";
 
 interface TraitsProps {
   traits: string[];
@@ -12,20 +11,24 @@ export function Traits({ traits, className }: TraitsProps) {
   if (!traits || traits.length === 0) return null;
 
   return (
-    <div className="my-2 flex gap-1">
+    <div className="my-2 flex flex-wrap gap-1">
       {traits.map((id) => (
-        <Trait id={id} key={id} />
+        <TraitBadge
+          id={id}
+          key={id}
+          trait={allTraits.find((x) => x.url_ === `tratti/${id}`)}
+        />
       ))}
     </div>
   );
 }
 
-interface TraitProps {
+export interface TraitBadgeProps {
   id: string;
+  trait?: Trait | null;
 }
 
-function Trait({ id }: TraitProps) {
-  const trait = allTraits.find((x) => x.url_ === `tratti/${id}`);
+export function TraitBadge({ id, trait }: TraitBadgeProps) {
   if (!trait) {
     return (
       <span className="inline-block rounded-md bg-red-500 px-2 py-0.5 text-sm">
@@ -38,18 +41,18 @@ function Trait({ id }: TraitProps) {
     <Link
       key={id}
       href={trait.url_}
-      className={clsx(
-        "inline-block rounded-md px-2 py-0.5 text-sm",
-        traitColorMap[id] ?? "bg-orange-800 text-white"
+      className={cx(
+        "inline-block rounded-md px-2 py-0.5 text-sm font-semibold",
+        traitColorMap[id] ?? "bg-amber-800/30 text-amber-800"
       )}
     >
-      {trait?.title.name ?? id}
+      {trait.title.name ?? id}
     </Link>
   );
 }
 
 const traitColorMap: Record<string, string> = {
-  "non-comune": "bg-orange-500 text-white",
-  raro: "bg-blue-600 text-white",
-  unico: "bg-purple-600 text-white",
+  "non-comune": "bg-orange-500/30 text-orange-800",
+  raro: "bg-blue-600/30 text-blue-800",
+  unico: "bg-purple-600/30 text-purple-800",
 };

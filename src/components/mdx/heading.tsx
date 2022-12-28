@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cx } from "cva";
 import { HTMLAttributes, useContext } from "react";
 import { useHeader } from "src/heading-extractor";
 import { parseTitle } from "src/utils";
@@ -42,7 +42,7 @@ export function Heading({
     <Component
       {...props}
       id={id}
-      className={clsx(
+      className={cx(
         "group -ml-4 flex scroll-mt-[var(--scroll-mt)] gap-[.25em] whitespace-pre-wrap pl-4",
         className
       )}

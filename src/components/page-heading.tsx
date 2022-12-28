@@ -1,6 +1,6 @@
 import { useHeader } from "@/heading-extractor";
 import { Title } from "@/utils";
-import clsx from "clsx";
+import { cx } from "cva";
 import { Anchor } from "./anchor";
 
 interface PageHeadingProps {
@@ -20,7 +20,7 @@ export function PageHeading({
 
   return (
     <h1
-      className={clsx(
+      className={cx(
         "group -ml-4 flex scroll-mt-[var(--scroll-mt)] gap-[.25em] whitespace-pre-wrap pl-4",
         isStatblock && "text-xl font-bold uppercase",
         className

@@ -4,6 +4,9 @@ patchedDependencies:
   '@contentlayer/core@0.2.9':
     hash: 4ootuojkctg65krdqlq6da6r34
     path: patches/@contentlayer__core@0.2.9.patch
+  class-variance-authority@0.4.0:
+    hash: 6tykonsatk6mm4wxmbfg23foja
+    path: patches/class-variance-authority@0.4.0.patch
 
 specifiers:
   '@mdx-js/react': ^2.2.1
@@ -18,7 +21,6 @@ specifiers:
   '@types/react': ^18.0.26
   '@types/react-dom': ^18.0.10
   autoprefixer: ^10.4.13
-  clsx: ^1.2.1
   contentlayer: ^0.2.9
   cva: npm:class-variance-authority@^0.4.0
   esbuild: ^0.16.11
@@ -52,9 +54,8 @@ specifiers:
 
 dependencies:
   '@next/font': 13.1.1
-  clsx: 1.2.1
   contentlayer: 0.2.9
-  cva: /class-variance-authority/0.4.0_typescript@4.9.4
+  cva: /class-variance-authority/0.4.0_6tykonsatk6mm4wxmbfg23foja_typescript@4.9.4
   lodash-es: 4.17.21
   next: 13.1.1_biqbaboplfbrettd7655fr4n2y
   next-contentlayer: 0.2.9_q76c2b4vyoegvsbrcwkfvimnai
@@ -2744,7 +2745,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
-  /class-variance-authority/0.4.0_typescript@4.9.4:
+  /class-variance-authority/0.4.0_6tykonsatk6mm4wxmbfg23foja_typescript@4.9.4:
     resolution: {integrity: sha512-74enNN8O9ZNieycac/y8FxqgyzZhZbxmCitAtAeUrLPlxjSd5zA7LfpprmxEcOmQBnaGs5hYhiSGnJ0mqrtBLQ==}
     peerDependencies:
       typescript: '>= 4.5.5 < 5'
@@ -2754,6 +2755,7 @@ packages:
     dependencies:
       typescript: 4.9.4
     dev: false
+    patched: true
 
   /client-only/0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
@@ -2771,11 +2773,6 @@ packages:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
-    dev: false
-
-  /clsx/1.2.1:
-    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
-    engines: {node: '>=6'}
     dev: false
 
   /color-convert/1.9.3:

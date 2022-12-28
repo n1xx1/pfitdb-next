@@ -1,9 +1,6 @@
+import { PhrasingContent, Root, Text } from "mdast";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
-import { Root, Text, PhrasingContent } from "mdast";
-import { MdxJsxTextElement } from "mdast-util-mdx";
-
-const regexIcon = /:(a|1|aa|2|aaa|3|r|f|g):/g;
 
 const iconMap: Record<string, string> = {
   a: "A",
@@ -23,26 +20,29 @@ function remarkIcons(options = {}) {
       tree as any,
       "text",
       (node: Text, index, parent: { children: PhrasingContent[] }) => {
-        const m = node.value.split(regexIcon, 3);
-        if (m.length !== 3) {
+        const regexIcon = /:(a|1|aa|2|aaa|3|r|f|g):/g;
+        const parts = node.value.split(regexIcon);
+        if (parts.length < 3) {
           return "skip";
         }
 
-        const [before, icon, after] = m;
         const replace: PhrasingContent[] = [];
+        for (let i = 0; i < parts.length - 1; i += 2) {
+          if (parts[i].length > 0) {
+            replace.push({ type: "text", value: parts[i] });
+          }
+          replace.push({
+            type: "mdxJsxTextElement",
+            name: iconMap[parts[i + 1]],
+            children: [],
+            attributes: [],
+          });
+        }
 
-        if (before.length > 0) {
-          replace.push({ type: "text", value: before });
+        if (parts[parts.length - 1].length > 0) {
+          replace.push({ type: "text", value: parts[parts.length - 1] });
         }
-        replace.push({
-          type: "mdxJsxTextElement",
-          name: iconMap[icon],
-          children: [],
-          attributes: [],
-        });
-        if (after.length > 0) {
-          replace.push({ type: "text", value: after });
-        }
+
         parent.children.splice(index!, 1, ...replace);
         return index;
       }

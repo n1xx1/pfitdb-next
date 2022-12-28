@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cx } from "cva";
 import Link from "next/link";
 import { AnchorHTMLAttributes } from "react";
 import { root } from "src/contentlayer-utils";
@@ -26,7 +26,7 @@ export function SafeLink({
   return (
     <a
       href={href}
-      className={clsx(className, { "text-red-700": !href.startsWith("#") })}
+      className={cx(className, !href.startsWith("#") && "text-red-700")}
       {...props}
     >
       {children}

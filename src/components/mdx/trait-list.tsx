@@ -1,23 +1,17 @@
-import { allDocuments } from ".contentlayer/generated";
-import Link from "next/link";
-import { SafeLink } from "./safe-link";
+import { allTraits } from ".contentlayer/generated";
+import { TraitBadge } from "../traits";
 
 export interface TraitListProps {
   category: string;
 }
 
 export function TraitList({ category }: TraitListProps) {
-  const traits = allDocuments.filter(
-    (x) =>
-      x.url_.startsWith("tratti/") && (x as any).categories?.includes(category)
-  );
+  const traits = allTraits.filter((x) => x.categories?.includes(category));
 
   return (
-    <div className="flex flex-wrap gap-1">
-      {traits.map((t) => (
-        <SafeLink className="block" key={t.url_} href={`/${t.url_}`}>
-          {t.title.name}
-        </SafeLink>
+    <div className="not-prose flex flex-wrap gap-1">
+      {traits.map((t, i) => (
+        <TraitBadge id={t.titleSlug} key={i} trait={t} />
       ))}
     </div>
   );
