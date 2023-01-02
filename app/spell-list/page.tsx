@@ -1,9 +1,8 @@
+import { statblockComponents } from "@/components/mdx/base";
 import { PageHeading } from "@/components/page-heading";
 import { Traits } from "@/components/traits";
-import { allSpells, Spell } from "contentlayer/generated";
 import { getMDXComponent } from "@/contentlayer-mdx";
-import { statblockComponents } from "@/components/mdx/base";
-import { cx } from "cva";
+import { allSpells, Spell } from "contentlayer/generated";
 
 export default function Page({
   searchParams,

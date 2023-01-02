@@ -47,13 +47,15 @@ export default function Page({ params, searchParams }: any) {
         id={page.titleSlug}
         isStatblock={isStatblock}
       />
-      <MDXContent
-        components={{
-          ...baseComponents,
-          a: ({ children }) => <>{children}</>,
-          TraitList: ({ children }) => <>{children}</>,
-        }}
-      />
+      <PageContext.Provider value={{ page }}>
+        <MDXContent
+          components={{
+            ...baseComponents,
+            a: ({ children }) => <>{children}</>,
+            TraitList: ({ children }) => <>{children}</>,
+          }}
+        />
+      </PageContext.Provider>
     </>
   );
 

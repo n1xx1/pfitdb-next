@@ -5,4 +5,10 @@ disablePrevious: true
 
 # Lista Incantesimi
 
-<ResourceList columns="1" size="sm" />
+<Table
+  columns={[
+    { key: "level", name: "Livello" },
+    { key: "traditions", name: "Tradizioni" },
+    { key: "traits", name: "Tratti" },
+  ]}
+/>

@@ -11,7 +11,7 @@ export function Traits({ traits, className }: TraitsProps) {
   if (!traits || traits.length === 0) return null;
 
   return (
-    <div className="my-2 flex flex-wrap gap-1">
+    <div className={cx("my-2 flex flex-wrap gap-1", className)}>
       {traits.map((id) => (
         <TraitBadge
           id={id}

@@ -4,6 +4,7 @@ import { Include } from "./include";
 import { A, AA, AAA, R, F } from "./pf2";
 import { Resource, ResourceList } from "./resources";
 import { SafeLink } from "./safe-link";
+import { Table } from "./table";
 import { TraitList } from "./trait-list";
 
 export const baseComponents: MDXComponents = {
@@ -23,6 +24,7 @@ export const baseComponents: MDXComponents = {
   F,
   ResourceList,
   Resource,
+  Table,
 };
 
 export const statblockComponents: MDXComponents = {

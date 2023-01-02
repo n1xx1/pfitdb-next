@@ -100,7 +100,11 @@ export function getSiblings(doc: DocumentTypes) {
 
 export function getChildren(doc: DocumentTypes) {
   const page = root.get(doc.url_.split("/"));
-  return page?.sortedChildren?.map((c) => c.page) ?? [];
+  return (
+    page?.sortedChildren
+      ?.map((c) => c.page)
+      .filter((c): c is DocumentTypes => !!c) ?? []
+  );
 }
 
 export function getParent(doc: DocumentTypes) {
