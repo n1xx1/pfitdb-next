@@ -15,7 +15,6 @@ import {
   getParents,
   getPreviousTraverse,
 } from "src/contentlayer-utils";
-import { gatherHeadings } from "src/heading-extractor";
 
 // export const dynamicParams = false;
 
@@ -40,25 +39,6 @@ export default function Page({ params, searchParams }: any) {
   const isStatblock = documentIsStatblock(page);
   const MDXContent = getMDXComponent(page.body.code);
 
-  const headings = gatherHeadings(
-    <>
-      <PageHeading
-        title={page.title}
-        id={page.titleSlug}
-        isStatblock={isStatblock}
-      />
-      <PageContext.Provider value={{ page }}>
-        <MDXContent
-          components={{
-            ...baseComponents,
-            a: ({ children }) => <>{children}</>,
-            TraitList: ({ children }) => <>{children}</>,
-          }}
-        />
-      </PageContext.Provider>
-    </>
-  );
-
   const parents = getParents(page).map((p) => ({
     href: p.url_,
     children: p.title.name,
@@ -72,7 +52,8 @@ export default function Page({ params, searchParams }: any) {
           <div
             className={cx(
               "relative",
-              !isStatblock && "prose prose-slate max-w-none"
+              !isStatblock &&
+                "prose prose-slate max-w-none [&_tbody_td:first-child]:prose-table:pl-[0.5714286em] [&_thead_th:first-child]:prose-table:pl-[0.5714286em]"
             )}
           >
             <PageHeading
@@ -94,7 +75,7 @@ export default function Page({ params, searchParams }: any) {
           </div>
         </>
       }
-      headings={headings}
+      headings={page.headings}
     />
   );
 }

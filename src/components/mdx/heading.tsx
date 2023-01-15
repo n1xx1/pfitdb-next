@@ -1,6 +1,5 @@
 import { cx } from "cva";
 import { HTMLAttributes, useContext } from "react";
-import { useHeader } from "src/heading-extractor";
 import { parseTitle } from "src/utils";
 import { Anchor } from "../anchor";
 import { IncludedContext } from "./include";
@@ -32,9 +31,7 @@ export function Heading({
         </span>
       </>
     );
-    useHeader({ depth, className, id, children: name, ...props });
   } else {
-    useHeader({ depth, className, id, children, ...props });
     children = <span>{children}</span>;
   }
 

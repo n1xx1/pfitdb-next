@@ -16,6 +16,7 @@
     "jsx": "preserve",
     "plugins": [{ "name": "next" }],
     "downlevelIteration": true,
+    "types": ["react/next"],
     "baseUrl": ".",
     "paths": {
       "@app/*": ["./app/*"],

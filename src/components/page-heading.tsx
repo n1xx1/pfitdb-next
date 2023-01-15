@@ -1,4 +1,3 @@
-import { useHeader } from "@/heading-extractor";
 import { Title } from "@/utils";
 import { cx } from "cva";
 import { Anchor } from "./anchor";
@@ -16,8 +15,6 @@ export function PageHeading({
   isStatblock,
   className,
 }: PageHeadingProps) {
-  useHeader({ depth: 1, className, id, children: title.name });
-
   return (
     <h1
       className={cx(

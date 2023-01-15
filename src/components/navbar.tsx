@@ -10,7 +10,7 @@ export function Navbar() {
         </Link>
         <div className="relative ml-auto hidden items-center lg:flex">
           <a
-            href="https://github.com/tailwindlabs/tailwindcss"
+            href="https://github.com/n1xx1/pfitdb-next"
             className="ml-6 block text-slate-400 hover:text-slate-500"
           >
             <span className="sr-only">PFITDB on GitHub</span>

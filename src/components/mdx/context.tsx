@@ -1,5 +1,5 @@
-import { createServerContext } from "@/server-context";
 import { DocumentTypes } from "contentlayer/generated";
+import { createServerContext } from "react";
 
 export type PageContextInstance = {
   page: DocumentTypes;

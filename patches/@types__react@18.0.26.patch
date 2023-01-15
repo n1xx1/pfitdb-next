@@ -1,0 +1,13 @@
+diff --git a/next.d.ts b/next.d.ts
+index df3314046216f4982f422cc003fbcf0c1bd722a2..ee08bfcbd6107d00c6354f0300719258f3255831 100644
+--- a/next.d.ts
++++ b/next.d.ts
+@@ -55,7 +55,7 @@ declare module '.' {
+ 
+     export function use<T>(usable: Usable<T>): T;
+ 
+-    interface ServerContextJSONArray extends ReadonlyArray<ServerContextJSONArray> {}
++    interface ServerContextJSONArray extends ReadonlyArray<ServerContextJSONValue> {}
+     export type ServerContextJSONValue =
+         | string
+         | boolean

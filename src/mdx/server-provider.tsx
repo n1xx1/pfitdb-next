@@ -1,6 +1,5 @@
 import { MDXComponents } from "mdx/types";
-import { ReactNode, useContext, useMemo } from "react";
-import { createServerContext } from "../server-context";
+import { createServerContext, ReactNode, useContext, useMemo } from "react";
 
 export const MDXContext = createServerContext("MDXContext", {});
 

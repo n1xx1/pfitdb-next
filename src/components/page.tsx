@@ -6,7 +6,7 @@ import { Sidebar } from "./sidebar";
 
 interface DocumentPageProps {
   content: ReactNode;
-  headings?: { depth: number; id?: string; children?: ReactNode }[];
+  headings?: readonly { depth: number; id: string; contents: string }[];
   breadcrumbs: Breadcrumb[];
 }
 
@@ -43,13 +43,13 @@ export function DocumentPage({
                         }
                       >
                         <a
-                          href={`#${h.id ?? ""}`}
+                          href={`#${h.id}`}
                           className={cx(
                             "block py-1 hover:text-slate-900",
                             h.depth <= 1 && "font-medium"
                           )}
                         >
-                          {h.children}
+                          {h.contents.replace(/ - .*$/, "")}
                         </a>
                       </li>
                     ))}

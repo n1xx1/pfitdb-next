@@ -1,11 +1,10 @@
 import { allDocuments } from "contentlayer/generated";
-import { Context, useContext } from "react";
+import { Context, createServerContext, useContext } from "react";
 import { getMDXComponent } from "../../contentlayer-mdx";
-import { createServerContext } from "../../server-context";
 import { baseComponents } from "./base";
 import { Heading } from "./heading";
 
-export const IncludedContext: Context<{ depth: number }> = createServerContext(
+export const IncludedContext = createServerContext<{ depth: number }>(
   "IncludedContext",
   { depth: 0 }
 );

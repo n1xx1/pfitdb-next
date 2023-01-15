@@ -11,11 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@next/font": "^13.1.1",
+    "@next/font": "^13.1.2",
+    "@vcarl/remark-headings": "^0.1.0",
     "contentlayer": "^0.2.9",
     "cva": "npm:class-variance-authority@^0.4.0",
+    "hast-util-to-text": "^3.1.2",
     "lodash-es": "^4.17.21",
-    "next": "^13.1.1",
+    "next": "^13.1.2",
     "next-contentlayer": "^0.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -25,7 +27,7 @@
   "devDependencies": {
     "@mdx-js/react": "^2.2.1",
     "@svgr/webpack": "^6.5.1",
-    "@tailwindcss/typography": "^0.5.8",
+    "@tailwindcss/typography": "^0.5.9",
     "@types/hast": "^2.3.4",
     "@types/lodash-es": "^4.17.6",
     "@types/mdast": "^3.0.10",
@@ -34,19 +36,19 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
     "autoprefixer": "^10.4.13",
-    "esbuild": "^0.16.11",
+    "esbuild": "^0.17.0",
     "estree-util-value-to-estree": "^2.1.0",
     "github-slugger": "^2.0.0",
-    "hast-util-has-property": "^2.0.0",
-    "hast-util-heading-rank": "^2.1.0",
+    "hast-util-has-property": "^2.0.1",
+    "hast-util-heading-rank": "^2.1.1",
     "hast-util-to-string": "^2.0.0",
     "mdast-util-gfm-table": "^1.0.6",
     "mdast-util-mdx": "^2.0.0",
     "mdast-util-to-string": "^3.1.0",
     "micromark": "^3.1.0",
     "micromark-extension-gfm-table": "^1.0.5",
-    "postcss": "^8.4.20",
-    "prettier": "^2.8.1",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.3",
     "prettier-plugin-tailwindcss": "^0.2.1",
     "remark-extended-table": "^1.0.1",
     "remark-gfm": "^3.0.1",
@@ -59,7 +61,8 @@
   "pnpm": {
     "patchedDependencies": {
       "@contentlayer/core@0.2.9": "patches/@contentlayer__core@0.2.9.patch",
-      "class-variance-authority@0.4.0": "patches/class-variance-authority@0.4.0.patch"
+      "class-variance-authority@0.4.0": "patches/class-variance-authority@0.4.0.patch",
+      "@types/react@18.0.26": "patches/@types__react@18.0.26.patch"
     }
   }
 }

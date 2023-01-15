@@ -23,9 +23,7 @@ export default function RootLayout({
       )}
     >
       <head />
-      <body>
-        <div>{children}</div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -16,6 +16,11 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-inter)", ...fontFamily.sans],
       },
+      typography: {
+        DEFAULT: {
+          css: {},
+        },
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

@@ -5,17 +5,17 @@ import {
   makeSource,
 } from "contentlayer/source-files";
 import * as hast from "hast";
+import { toText } from "hast-util-to-text";
 import "mdast-util-mdx";
-import rehypeSlug, {
-  type Options as RehypeSlugOptions,
-} from "./src/markdown/rehype-plugin-slug";
 import {
   extendedTableHandlers,
   remarkExtendedTable,
 } from "remark-extended-table";
 import remarkGfm from "remark-gfm";
-import { getSlugOrder, parseTitle } from "./src/utils";
+import { visit } from "unist-util-visit";
+import rehypeSlug from "./src/markdown/rehype-plugin-slug";
 import remarkIcons from "./src/markdown/remark-plugin-icons";
+import { getSlugOrder, parseTitle } from "./src/utils";
 
 function getPageSlugFromFlattenedPath(path: string) {
   const parts = path.split(/\//g);
@@ -49,6 +49,10 @@ function defineBaseComputedFields<DefName extends string = string>() {
         const slug = getPageSlugFromFlattenedPath(doc._raw.flattenedPath);
         return { name: slug[slug.length - 1] };
       },
+    },
+    headings: {
+      type: "ReadonlyArray<{ id: string; depth: number; contents: string }>" as any,
+      resolve: (doc) => (doc._raw as any).headings ?? [],
     },
     url_: {
       type: "string",
@@ -138,6 +142,27 @@ function rehypeRemoveTitle() {
   };
 }
 
+function rehypeHeadings() {
+  const hs = ["h1", "h2", "h3", "h4", "h5", "h6"];
+  return (root: any, vfile: any) => {
+    const headingList: any[] = [];
+    visit(root, "element", (node: hast.Element) => {
+      if (!hs.includes(node.tagName)) return;
+
+      const heading: any = {
+        id: node.properties?.id ?? "",
+        depth: +node.tagName.substring(1),
+        contents: toText(node),
+      };
+      headingList.push(heading);
+    });
+
+    if (vfile.data?.rawDocumentData) {
+      vfile.data.rawDocumentData.headings = headingList;
+    }
+  };
+}
+
 export default makeSource({
   contentDirPath: "content",
   documentTypes: [Trait, Spell, Doc],
@@ -148,12 +173,10 @@ export default makeSource({
       [
         rehypeSlug,
         {
-          transformText(t) {
-            const { name } = parseTitle(t);
-            return name.replaceAll("'", " ");
-          },
-        } as RehypeSlugOptions,
+          transformText: (t: string) => parseTitle(t).name.replaceAll("'", " "),
+        },
       ],
+      rehypeHeadings,
       rehypeRemoveTitle,
     ],
     mdxOptions: ({ remarkRehypeOptions, ...options }) => ({
