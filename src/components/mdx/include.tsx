@@ -1,21 +1,17 @@
-import { allDocuments } from "contentlayer/generated";
-import { Context, createServerContext, useContext } from "react";
+import { allDocuments } from "contentlayer2/generated";
 import { getMDXComponent } from "../../contentlayer-mdx";
 import { baseComponents } from "./base";
 import { Heading } from "./heading";
-
-export const IncludedContext = createServerContext<{ depth: number }>(
-  "IncludedContext",
-  { depth: 0 }
-);
+import { MDXComponents } from "mdx/types";
 
 export interface IncludeProps {
   path: string;
+  parentProps: Record<string, unknown>;
 }
 
-export function Include({ path }: IncludeProps) {
+export function Include({ path, parentProps }: IncludeProps) {
   const doc = allDocuments.find(
-    (x) => x.url_ === path || x._raw.flattenedPath === path
+    (x) => x.url_ === path || x._raw.flattenedPath === path,
   );
   if (!doc) {
     return (
@@ -26,15 +22,21 @@ export function Include({ path }: IncludeProps) {
     );
   }
 
-  const ctx = useContext(IncludedContext);
-  const depth = (ctx?.depth ?? 0) + 1;
+  const depth = (parentProps.depth as number) ?? 0;
   const MDXContent = getMDXComponent(doc.body.code);
+
   return (
-    <IncludedContext.Provider value={{ depth: depth }}>
+    <>
       <Heading depth={1} id={doc.titleSlug}>
         {doc.title.name}
       </Heading>
-      <MDXContent components={baseComponents} />
-    </IncludedContext.Provider>
+      <MDXContent
+        components={{
+          ...(parentProps.components as MDXComponents),
+          ...baseComponents,
+        }}
+        depth={depth + 1}
+      />
+    </>
   );
 }

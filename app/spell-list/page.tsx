@@ -2,7 +2,7 @@ import { statblockComponents } from "@/components/mdx/base";
 import { PageHeading } from "@/components/page-heading";
 import { Traits } from "@/components/traits";
 import { getMDXComponent } from "@/contentlayer-mdx";
-import { allSpells, Spell } from "contentlayer/generated";
+import { allSpells, type Spell as SpellType } from "contentlayer2/generated";
 
 export default function Page({
   searchParams,
@@ -13,8 +13,8 @@ export default function Page({
     Array.isArray(searchParams?.pages)
       ? searchParams!.pages
       : searchParams?.pages
-      ? [searchParams.pages]
-      : []
+        ? [searchParams.pages]
+        : []
   ).flatMap((x) => x.split(/\s*,\s*/g));
 
   return (
@@ -40,7 +40,7 @@ export default function Page({
 }
 
 interface SpellProps {
-  spell: Spell;
+  spell: SpellType;
 }
 
 function Spell({ spell }: SpellProps) {

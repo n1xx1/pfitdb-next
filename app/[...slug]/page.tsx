@@ -1,7 +1,7 @@
-import { PageContext } from "@/components/mdx/context";
+import { useSetCurrentPage } from "@/components/mdx/context";
 import { PageHeading } from "@/components/page-heading";
 import { Traits } from "@/components/traits";
-import { allDocuments, DocumentTypes } from "contentlayer/generated";
+import { allDocuments, DocumentTypes } from "contentlayer2/generated";
 import { cx } from "cva";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -15,8 +15,6 @@ import {
   getParents,
   getPreviousTraverse,
 } from "src/contentlayer-utils";
-
-// export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return allDocuments.map((doc) => ({
@@ -36,6 +34,8 @@ export default function Page({ params, searchParams }: any) {
     notFound();
   }
 
+  useSetCurrentPage(page);
+
   const isStatblock = documentIsStatblock(page);
   const MDXContent = getMDXComponent(page.body.code);
 
@@ -53,7 +53,7 @@ export default function Page({ params, searchParams }: any) {
             className={cx(
               "relative",
               !isStatblock &&
-                "prose prose-slate max-w-none [&_tbody_td:first-child]:prose-table:pl-[0.5714286em] [&_thead_th:first-child]:prose-table:pl-[0.5714286em]"
+                "prose prose-slate max-w-none [&_tbody_td:first-child]:prose-table:pl-[0.5714286em] [&_thead_th:first-child]:prose-table:pl-[0.5714286em]",
             )}
           >
             <PageHeading
@@ -63,11 +63,9 @@ export default function Page({ params, searchParams }: any) {
             />
             {"traits" in page && <Traits traits={page.traits ?? []} />}
             {isStatblock && <hr />}
-            <PageContext.Provider value={{ page }}>
-              <MDXContent
-                components={isStatblock ? statblockComponents : baseComponents}
-              />
-            </PageContext.Provider>
+            <MDXContent
+              components={isStatblock ? statblockComponents : baseComponents}
+            />
           </div>
           <div className="my-8 flex gap-2">
             <PreviousPageButton doc={page} />

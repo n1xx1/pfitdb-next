@@ -4,7 +4,7 @@ import { cva, cx, VariantProps } from "cva";
 import Link from "next/link";
 import { ReactNode, useContext } from "react";
 import { Button } from "../button";
-import { PageContext } from "./context";
+import { useCurrentPage } from "./context";
 
 const resourceStyles = cva(tw`group !flex flex-col`, {
   variants: {
@@ -49,11 +49,11 @@ export function ResourceList({
   className,
   children,
 }: ResourceListProps) {
-  const ctx = useContext(PageContext);
+  const page = useCurrentPage();
 
-  if (!children && ctx) {
-    children = getChildren(ctx.page).map((page, i) => (
-      <Resource key={i} href={page?.url_ ?? "#"}>
+  if (!children && page) {
+    children = getChildren(page).map((page, i) => (
+      <Resource key={i} href={"/" + (page?.url_ ?? "")}>
         {page?.title.name ?? "?"}
       </Resource>
     ));

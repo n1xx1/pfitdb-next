@@ -2,7 +2,7 @@ import { cx } from "cva";
 import { HTMLAttributes, useContext } from "react";
 import { parseTitle } from "src/utils";
 import { Anchor } from "../anchor";
-import { IncludedContext } from "./include";
+// import { IncludedContext } from "./include";
 
 export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   depth: number;
@@ -16,7 +16,7 @@ export function Heading({
   ...props
 }: HeadingProps) {
   type HeadingType = `h${1 | 2 | 3 | 4 | 5 | 6}`;
-  const ctx = useContext(IncludedContext);
+  const ctx = { depth: 0 }; // useContext(IncludedContext);
   depth = Math.min(depth + (ctx?.depth ?? 0), 6);
   const Component = `h${depth}` as HeadingType;
 
@@ -41,7 +41,7 @@ export function Heading({
       id={id}
       className={cx(
         "group -ml-4 flex scroll-mt-[var(--scroll-mt)] gap-[.25em] whitespace-pre-wrap pl-4",
-        className
+        className,
       )}
     >
       <Anchor href={`#${id}`} />

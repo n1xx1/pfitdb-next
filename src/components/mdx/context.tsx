@@ -1,11 +1,12 @@
-import { DocumentTypes } from "contentlayer/generated";
-import { createServerContext } from "react";
+import { DocumentTypes } from "contentlayer2/generated";
+import { cache, createServerContext } from "react";
 
-export type PageContextInstance = {
-  page: DocumentTypes;
-};
+const pageContext = cache(() => ({ page: null as null | DocumentTypes }));
 
-export const PageContext = createServerContext<null | PageContextInstance>(
-  "page_context",
-  null
-);
+export function useCurrentPage(): null | DocumentTypes {
+  return pageContext().page;
+}
+
+export function useSetCurrentPage(page: DocumentTypes): void {
+  pageContext().page = page;
+}

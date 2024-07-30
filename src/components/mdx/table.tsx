@@ -1,8 +1,8 @@
 import { getChildren } from "@/contentlayer-utils";
 import Link from "next/link";
-import { ReactNode, useContext } from "react";
+import { ReactNode } from "react";
 import { Traits } from "../traits";
-import { PageContext } from "./context";
+// import { PageContext } from "./context";
 
 export interface TableProps {
   children?: ReactNode;
@@ -11,7 +11,10 @@ export interface TableProps {
 }
 
 export function Table({ columns, className, children }: TableProps) {
-  const ctx = useContext(PageContext);
+  const ctx = null as null | { page: any }; // useContext(PageContext);
+
+  return null;
+
   const items = getChildren(ctx!.page);
 
   return (
@@ -19,9 +22,7 @@ export function Table({ columns, className, children }: TableProps) {
       <thead>
         <tr>
           <td>Nome</td>
-          {columns?.map((c) => (
-            <td key={c.key}>{c.name}</td>
-          ))}
+          {columns?.map((c) => <td key={c.key}>{c.name}</td>)}
         </tr>
       </thead>
       <tbody>
@@ -35,8 +36,8 @@ export function Table({ columns, className, children }: TableProps) {
                 {c.key === "level" ? (
                   <>{p.title.level}</>
                 ) : c.key === "traditions" && "traditions" in p ? (
-                  p.traditions?.map((t) => traditionsMap[t] ?? t).join(", ") ??
-                  ""
+                  (p.traditions?.map((t) => traditionsMap[t] ?? t).join(", ") ??
+                  "")
                 ) : c.key === "traits" && "traits" in p ? (
                   <Traits className="not-prose" traits={p.traits ?? []} />
                 ) : (

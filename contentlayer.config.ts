@@ -3,10 +3,11 @@ import {
   defineDocumentType,
   FieldDefs,
   makeSource,
-} from "contentlayer/source-files";
+} from "contentlayer2/source-files";
 import * as hast from "hast";
 import { toText } from "hast-util-to-text";
 import "mdast-util-mdx";
+import { MdxJsxFlowElement, MdxJsxTextElement } from "mdast-util-mdx";
 import {
   extendedTableHandlers,
   remarkExtendedTable,
@@ -19,7 +20,7 @@ import { getSlugOrder, parseTitle } from "./src/utils";
 
 function getPageSlugFromFlattenedPath(path: string) {
   const parts = path.split(/\//g);
-  if (parts[parts.length - 1] === "_") {
+  if (parts[parts.length - 1] === "_index") {
     parts.splice(parts.length - 1, 1);
   }
   return parts;
@@ -131,7 +132,7 @@ const Doc = defineDocumentType(() => ({
 function rehypeRemoveTitle() {
   return (root: hast.Root, vfile: any) => {
     const heading = root.children.find(
-      (x): x is hast.Element => x.type === "element" && x.tagName === "h1"
+      (x): x is hast.Element => x.type === "element" && x.tagName === "h1",
     );
     if (heading) {
       if (vfile.data?.rawDocumentData) {
@@ -163,19 +164,55 @@ function rehypeHeadings() {
   };
 }
 
+function rehypeTransformText(t: string) {
+  return parseTitle(t).name.replaceAll("'", " ");
+}
+
+function remarkPassJsxContext() {
+  return (root: any, vfile: any) => {
+    visit(
+      root,
+      ["mdxJsxFlowElement", "mdxJsxTextElement"],
+      (node: MdxJsxFlowElement | MdxJsxTextElement) => {
+        node.attributes.push({
+          type: "mdxJsxAttribute",
+          name: "parentProps",
+          value: {
+            type: "mdxJsxAttributeValueExpression",
+            value: "props",
+            data: {
+              estree: {
+                type: "Program",
+                body: [
+                  {
+                    type: "ExpressionStatement",
+                    expression: { type: "Identifier", name: "props" },
+                  },
+                ],
+                sourceType: "module",
+                comments: [],
+              },
+            },
+          },
+        });
+      },
+    );
+  };
+}
+
 export default makeSource({
   contentDirPath: "content",
   documentTypes: [Trait, Spell, Doc],
   onExtraFieldData: "ignore",
   mdx: {
-    remarkPlugins: [remarkGfm, remarkExtendedTable, remarkIcons],
+    remarkPlugins: [
+      remarkGfm,
+      remarkExtendedTable,
+      remarkIcons,
+      remarkPassJsxContext,
+    ],
     rehypePlugins: [
-      [
-        rehypeSlug,
-        {
-          transformText: (t: string) => parseTitle(t).name.replaceAll("'", " "),
-        },
-      ],
+      [rehypeSlug, { transformText: rehypeTransformText }],
       rehypeHeadings,
       rehypeRemoveTitle,
     ],
@@ -185,16 +222,14 @@ export default makeSource({
         ...remarkRehypeOptions,
         handlers: Object.assign(
           remarkRehypeOptions?.handlers ?? {},
-          extendedTableHandlers
+          extendedTableHandlers,
         ),
       },
-      providerImportSource: "@mdx-js/react",
     }),
-    globals: {
-      "@mdx-js/react": {
-        varName: "MDXJsReact",
-        type: "cjs",
-      },
-    },
+    esbuildOptions: (options, frontmatter) => ({
+      ...options,
+      minify: false,
+    }),
+    globals: {},
   },
 });

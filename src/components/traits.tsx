@@ -1,4 +1,4 @@
-import { allTraits, Trait } from "contentlayer/generated";
+import { allTraits, Trait } from "contentlayer2/generated";
 import { cx } from "cva";
 import Link from "next/link";
 
@@ -43,7 +43,7 @@ export function TraitBadge({ id, trait }: TraitBadgeProps) {
       href={trait.url_}
       className={cx(
         "inline-block rounded-md px-2 py-0.5 text-sm font-semibold",
-        traitColorMap[id] ?? "bg-amber-800/30 text-amber-800"
+        traitColorMap[id] ?? "bg-amber-800/30 text-amber-800",
       )}
     >
       {trait.title.name ?? id}

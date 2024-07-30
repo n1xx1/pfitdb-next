@@ -1,4 +1,4 @@
-import { allDocuments, DocumentTypes } from "contentlayer/generated";
+import { allDocuments, DocumentTypes } from "contentlayer2/generated";
 import orderBy from "lodash-es/orderBy";
 
 class Tree {
@@ -21,7 +21,7 @@ class Tree {
     return orderBy(
       [...(this.children?.values() ?? [])].filter((s) => !!s.page),
       [(s) => s.page!.order_, (s) => s.page!.title.name],
-      ["asc", "asc"]
+      ["asc", "asc"],
     );
   }
 
@@ -29,7 +29,7 @@ class Tree {
     return orderBy(
       [...(this.children?.values() ?? [])],
       [(s) => s.page?.order_ ?? 0, (s) => s.page?.title?.name ?? s.slug],
-      ["asc", "asc"]
+      ["asc", "asc"],
     );
   }
 
